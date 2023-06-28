@@ -1,70 +1,180 @@
-# Getting Started with Create React App
+# Lista de Tarefas com Autenticação Firebase e Firestore
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este é um projeto de lista de tarefas que utiliza a autenticação do Firebase da Google e o banco de dados Firestore para armazenar as tarefas. Cada usuário tem sua própria lista de tarefas e pode adicionar, editar e excluir tarefas. O projeto foi desenvolvido em React.js.
 
-## Available Scripts
+## Funcionalidades
 
-In the project directory, you can run:
+- Adicionar tarefas: Os usuários podem digitar uma tarefa no campo de entrada e registrá-la na lista.
+- Editar tarefas: Os usuários podem editar o conteúdo de uma tarefa existente.
+- Excluir tarefas: Os usuários podem marcar uma tarefa como concluída e removê-la da lista.
 
-### `npm start`
+## Tecnologias utilizadas
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- React.js: Uma biblioteca JavaScript para criar interfaces de usuário.
+- Firebase: Um conjunto de ferramentas da Google para o desenvolvimento de aplicativos web e móveis.
+- Firestore: Um banco de dados NoSQL hospedado na nuvem pelo Firebase.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Pré-requisitos
 
-### `npm test`
+Antes de executar o projeto, certifique-se de ter as seguintes dependências instaladas:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Node.js: [Instalação do Node.js](https://nodejs.org)
+- Firebase: [Configuração do Firebase](https://firebase.google.com/docs/web/setup)
 
-### `npm run build`
+## Instalação
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Siga as etapas abaixo para executar o projeto localmente:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Clone o repositório do GitHub:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+git clone <URL DO REPOSITÓRIO>
+```
 
-### `npm run eject`
+2. Navegue até o diretório do projeto:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+cd <NOME DO DIRETÓRIO>
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. Instale as dependências do projeto:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+npm install
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+4. Configure as informações de autenticação do Firebase:
 
-## Learn More
+No arquivo `firebaseConnection.js` localizado na pasta `services`, substitua as configurações do Firebase pelas suas próprias credenciais e informações do projeto.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+5. Execute o projeto:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+npm start
+```
 
-### Code Splitting
+O projeto será executado localmente em `http://localhost:3000`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Estrutura do código
 
-### Analyzing the Bundle Size
+A seguir, é apresentado um trecho do código da página `admin.jsx`, que implementa as funcionalidades principais do projeto:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```javascript
+// Importações dos pacotes e componentes necessários
+import { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
+import { FcOvertime } from 'react-icons/fc';
+import { MdTask } from 'react-icons/md'
+import { AiOutlineCheck } from 'react-icons/ai'
+import {
+    addDoc,
+    collection,
+    onSnapshot,
+    query,
+    orderBy,
+    where,
+    deleteDoc,
+    doc,
+    updateDoc
+} from 'firebase/firestore';
+import { db } from '../../services/firebaseConnection';
+import Header from '../../components/Header';
+import './admin.css';
 
-### Making a Progressive Web App
+export default function Admin() {
+    // Estado para armazenar a entrada de tarefa do usuário
+    const [tarefaInput, setTarefaInput] = useState('');
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+    // Estado para armazenar a lista de tarefas
+    const [tarefas, setTarefas] = useState([]);
 
-### Advanced Configuration
+    // Estado para armazenar os detalhes do usuário autenticado
+    const [user, setUser] = useState({});
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+    // Estado para armazenar a tarefa que está sendo editada
+    const [editTarefa, setEditTarefa] = useState({});
 
-### Deployment
+    // ...
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+    // Função para adicionar uma nova tarefa
+    async function addTarefa(e) {
+        // ...
+    }
 
-### `npm run build` fails to minify
+    // Função para excluir uma tarefa
+    async function deletarTarefa(id) {
+        // ...
+    }
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+    // Função para editar uma tarefa
+    function editarTarefa(item) {
+        // ...
+    }
+
+    // Função para atualizar uma tarefa
+    async function atualizarTarefa() {
+        // ...
+    }
+
+    // ...
+
+    return (
+        <div className='adminContainer'>
+            {/* Componente Header */}
+            <Header />
+            <h1>Minhas Tarefas</h1>
+
+            {/* Formulário para adicionar/editar tarefas */}
+            <form className='containerForm form' onSubmit={addTarefa}>
+                {/* Campo de entrada de tarefa */}
+                <textarea
+                    placeholder='Digite uma tarefa'
+                    value={tarefaInput}
+                    onChange={(e) => setTarefaInput(e.target.value)}
+                />
+
+                {/* Botão de envio do formulário */}
+                {Object.keys(editTarefa).length > 0 ? (
+                    <button type='submit' className='btnSubmit' style={{ backgroundColor: '#6add39' }}>
+                        Atualizar Tarefa
+                    </button>
+                ) : (
+                    <button type='submit' className='btnSubmit'>
+                        Registrar Tarefa
+                    </button>
+                )}
+            </form>
+
+            {/* Lista de tarefas */}
+            {tarefas.map((item) => {
+                return (
+                    <article key={item.id} className='lista'>
+                        {/* Ícone de tarefa */}
+                        <MdTask className='icoTask' size={25} />
+
+                        {/* Conteúdo da tarefa */}
+                        <p>{item.tarefas}</p>
+
+                        {/* Data de registro da tarefa */}
+                        <time>
+                            <FcOvertime size={30} className='icoTime' />
+                            {item.registroTarefa}
+                        </time>
+
+                        {/* Botões de edição e exclusão da tarefa */}
+                        <div className='areaBtn'>
+                            <button onClick={() => editarTarefa(item)}>Editar</button>
+
+                            <button className='btnDelete' onClick={() => deletarTarefa(item.id)}>
+                                Concluir <AiOutlineCheck size={20} />
+                            </button>
+                        </div>
+                    </article>
+                );
+            })}
+        </div>
+    );
+}
+```
+
+Este é apenas um trecho do código, mas você pode encontrar o projeto completo no repositório do GitHub. Certifique-se de configurar corretamente as informações de autenticação do Firebase e instalar as dependências necessárias antes de executar o projeto.
