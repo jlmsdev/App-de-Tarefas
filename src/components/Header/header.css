@@ -1,0 +1,44 @@
+.containerHeader {
+    width: 100%;
+    height: 40px;
+    position: absolute;
+    top: 0px;
+
+    display: flex;
+    align-items: center;
+}
+
+.infoUsuario {
+    width: 90%;
+    height: 40px;
+    max-width: 800px;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nomeUsuario {
+    display: flex;
+    user-select: none;
+}
+
+.btnDeslogar {
+    border: 0;
+    background: transparent;
+    color: #FFF;
+    font-size: 1rem;
+    display: flex;
+    font-weight: bold;
+    transition: all .3s;
+}
+
+.btnDeslogar:hover {
+    color: #3d92f0;
+}
+
+.icoDeslogar,
+.icoUsuario {
+    margin-right: .5rem;
+}

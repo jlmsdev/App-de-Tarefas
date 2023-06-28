@@ -1,0 +1,34 @@
+.containerErro {
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.containerErro h1 {
+    font-size: 10rem;
+}
+
+.containerErro h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.containerErro a {
+    text-decoration: none;
+    color: #FFF;
+    border: 1px solid #FFF;
+    border-radius: 4px;
+    padding: 1rem;
+    transition: all .3s;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.containerErro a:hover {
+    background-color: #FFF;
+    color: #000;
+}
