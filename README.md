@@ -16,7 +16,7 @@ Este é um projeto de lista de tarefas que utiliza a autenticação do Firebase 
 
 ## Pré-requisitos
 
-Antes de executar o projeto, certifique-se de ter as seguintes dependências instaladas:
+Antes de executar o projeto, certifique-se de ter as seguintes dependências instaladas ou Acesse o Projeto em Produção: [Lista de Tarefas App](https://jlms-listatarefas.netlify.app/)
 
 - Node.js: [Instalação do Node.js](https://nodejs.org)
 - Firebase: [Configuração do Firebase](https://firebase.google.com/docs/web/setup)
